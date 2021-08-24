@@ -1,0 +1,113 @@
+NAME: Harsh Chobisa
+EMAIL: harshc4@g.ucla.edu
+ID: 505103854
+
+DESCRIPTION OF FILES:
+
+lab2_list.c 
+a C program that drives one or more parallel threads that do operations on a 
+shared linked list, and reports on the final list and performance.
+
+SortedList.h
+a header file describing the interfaces for linked list operations.
+
+SortedList.c 
+a C module that implements insert, delete, lookup, and length methods for a 
+sorted doubly linked circular list 
+
+tests.sh
+A shell script that runs all the tests that the spec requires. This script
+is called in the makefile
+
+Makefile
+The makefile has a few options: build, tests, graphs, dist, clean
+
+    tests ... run all specified test cases to generate results in CSV files. 
+    graphs ... generate the required graphs
+    dist ... create the deliverable tarball
+    clean ... delete all programs and output created by the Makefile
+    profile ... run profiling tools to generate an execution profiling report
+
+profile.out - execution profiling report showing where time was spent in the un-partitioned spin-lock implementation
+
+lab2_add.csv 
+contains all results for all of Part-1 tests.
+
+lab2_list.csv  
+contains all of your results for all of the Part-2 tests.
+
+All the graphs required by the spec:
+lab2b_1.png ... throughput vs. number of threads for mutex and spin-lock synchronized list operations.
+lab2b_2.png ... mean time per mutex wait and mean time per operation for mutex-synchronized list operations.
+lab2b_3.png ... successful iterations vs. threads for each synchronization method.
+lab2b_4.png ... throughput vs. number of threads for mutex synchronized partitioned lists.
+lab2b_5.png ... throughput vs. number of threads for spin-lock-synchronized partitioned lists.
+
+Also included is this README.
+
+
+Question 2.3.1
+
+In one and two thread lists, there will not be too much lock overhead from
+waiting for locks to unlock. When there are a smaller number of threads, 
+locks become available in less time, so there is less time spent waiting around
+for them. Thus, most of the time is spent doing operations on the list,
+like inserting, searching, and deleting. Conversely, in runs that have a 
+lot of threads, we spend more time waiting for locks to unlock. Thus, in a spin 
+lock, we spend most of the time wasting cpu time simply spinning. Similarly, in a mutex lock
+most of the time is spent in the specific functions for the mutex, as these are
+the most expensive parts of the code.
+
+
+
+Question 2.3.2
+
+After looking at the output of the profiler, it is clear that the most 
+expensive operation is the thread function, and the most expensive 
+part of the thread function will be sync lock and test line of the spin lock. 
+The while loop around this bit of code will continually spin, and therefore burn
+CPU time, while waiting for threads, and therefore make it the most expensive
+part of the code. The more threads there are, the more waiting for locks there
+will be, therefore the more CPU spinning there will be, therefore the operation
+will get more expensive with an increasing number of threads.
+
+
+
+Question 2.3.3
+
+Average lock wait time will rise because there are more threads. Since there
+are more threads, there is a higher chance that the threads are attempting 
+to access the same lock, meaning that there will be an increased amount of 
+waiting for these locks to be unlocked.
+
+Since one thread is always working towards completion, completion time per 
+operation will rise but not at dramatically as average lock wait time. This rise
+comes from the fact that a thread will likely have to wait for another thread
+to finish what it is doing before getting access to a lock that it needs. 
+However, as mentioned earlier, the rise is not as dramatic because at least one
+thread will always be moving towards completing its tasks. There is no deadlock
+in my code, so there will never be a situation where threads are waiting
+infinitely.
+
+Wait time per operation goes up faster because we will be double counting some 
+time as there could be overlap between the waiting of some of the threads. In wait
+time per operation, every thread is given a counter which is then summed at the 
+end, leaving room for overlap and double counting of time. However, completion time
+per operation has a global timer, so there will be no overlap, therefore the rise
+will not be as dramatic.
+
+
+Question 2.3.4
+
+Increasing the number of lists increases the throughput. This makes logical
+sense, as having more lists will increase the number of parallel operations we
+can make at once. This throughput will increase as the number of lists grows
+until we have each item in its own one element "list". At this point, the 
+throughput will not be able to increase any more. The idea that a the throughput 
+of an N-way partitioned list should be equivalent to the throughput of a single 
+list with fewer (1/N) threads makes sense. However, we cannot rely on this
+to always be true, as having a varying number of lists would affect contention
+in a different manner per situation. There are some situations where this idea
+would hold true, but it will not hold for every situation. Our graphs seem to 
+support this idea somewhat, but the data does not line up exactly.
+

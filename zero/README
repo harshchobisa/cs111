@@ -1,0 +1,9 @@
+NAME: Harsh Chobisa
+EMAIL: harshc4@g.ucla.edu
+ID: 505103854
+
+In this tar ball, I have included this README, a MAKEFILE, lab0.c, and two screenshots showing my GDB use.
+
+In my smoke tests, I covered all the cases that this program could cover by making sure I handled all of the different exit codes, from 1-5, as well as exit code 139 for a segmentation fault. I did this my comparing the expected exit value with the one my program recieved  I went about testing this project by manually testing as well as writing smoke tests for functionality.
+
+Overall, I feel confident in my C programming abilities and am looking forward to the rest of this class.

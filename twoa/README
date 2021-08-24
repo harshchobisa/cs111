@@ -1,0 +1,105 @@
+NAME: Harsh Chobisa
+EMAIL: harshc4@g.ucla.edu
+ID: 505103854
+
+DESCRIPTION OF FILES:
+
+lab2_add.c 
+a C program that implements and tests a shared variable add 
+function implements the specified command line options, and produces specified 
+output statistics.
+
+SortedList.h
+ a header file describing the interfaces for linked list operations.
+
+SortedList.c 
+a C module that implements insert, delete, lookup, and length methods for a 
+sorted doubly linked circular list 
+
+lab2_list.c 
+a C program that implements the (below) specified command line options and 
+produces the (below) specified output statistics.
+
+Makefile
+The makefile has a few options: build, tests, graphs, dist, clean
+
+    build ... compile all programs 
+    tests ... run all specified test cases to generate results in CSV files. 
+    graphs ... generate the required graphs
+    dist ... create the deliverable tarball
+    clean ... delete all programs and output created by the Makefile
+
+lab2_add.csv 
+contains all results for all of Part-1 tests.
+
+lab2_list.csv  
+contains all of your results for all of the Part-2 tests.
+
+All the graphs required by the spec:
+lab2_add-1.png 
+lab2_add-2.png 
+lab2_add-3.png 
+lab2_add-4.png 
+lab2_add-5.png 
+lab2_list-1.png 
+lab2_list-2.png 
+lab2_list-3.png 
+lab2_list-4.png
+
+Also included is this README.
+
+
+Question 2.1.1
+
+It takes many iterations to see an error because if there are a lot of iterations,
+it is more likely that a thread cannot finish all of its tasks in a time slice,
+and there will be a context switch, and likely a race condition.
+
+If the number of iterations are low, the chances of good executions are high
+becasue it is very likely that a thread will be able to accomplish all of its
+tasks in a single slice of time. Thus, there will be no context switch, 
+no interruption, and therefore no corruption.
+
+Question 2.1.2
+
+The yield will increase the number of context switches. There is a lot of 
+scheduling overhead associated with context switches. Thus, if there are an 
+increased number of them, there will be a lot of overhead that builds up
+which will slow down the program. The extra time is going into the context 
+switches. However, we cannot measure how long a context switch takes or 
+how much time it will add, so we cannot accurately measure per-operations
+timings.
+
+Question 2.1.3
+
+The more iterations there are, the more the iterations overtake the time of
+the context switches, and the more the overhead of the context switches
+get distributed/spread out across the number of increased iterations. Since
+there an increased number of iterations, they make up for the context switch
+overhead.
+
+When the function of the plot converges/stabilizes, then we will reach the 
+correct cost.
+
+Question 2.1.4
+
+There are less threads, and therefore less overhead, so all of the locks 
+perform similarly. The protected operations slowdown however, as the number 
+of threads rises. This is because the threads are waiting for each other
+to release the locks more, therefore increasing waiting time overhead.
+
+Question 2.2.1
+
+The slope in the second graph increases much more sharply, whereas it seems to 
+eventually plateau in the first graph. This means we've likely found the average
+cost for the first graph. The second one has not stabilized though, so we've 
+likely not found the average cost. It makes sense that the second one would
+increase much more quickly, as there are an increased number of lock operations
+for each thread as compared to the first one.
+
+Question 2.2.2
+
+It seems that mutexes are faster than spin locks for a lower number of threads,
+but are more expensive/slower for more threads. This makes sense, as mutex 
+locks don't burn CPU time by simply 'spinning' in the while loop like spin locks 
+do.

@@ -1,0 +1,19 @@
+NAME: Harsh Chobisa
+EMAIL: harshc4@g.ucla.edu
+ID: 505103854
+
+In this tar ball, I have included this README, a MAKEFILE, lab1b-server.c, 
+lab1b-client.c.
+
+The make file has a few possible options. One can run make to compile both 
+files, make server to make lab1b-server, make client to make lab1b-client, 
+make clean to remove files from untaring, and make dist to create the tar ball
+for submission.
+
+I spent four hours on a bug in this project, only to realize the bug was
+because I spelled the word received wrong.
+
+I have used a couple of resources in my code. The first is the rpi 
+socket programming tutorial linked in the spec. The second are TA slides.
+The third is zlib.net. A lot of code has been references from these three 
+sources.

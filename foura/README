@@ -1,0 +1,12 @@
+NAME: Harsh Chobisa
+EMAIL: harshc4@g.ucla.edu
+ID: 505103854
+
+In this tar ball, I have included this README, a MAKEFILE, and the four
+required screenshots.
+
+The make file has only one option: make dist which makes the tar ball
+for submission.
+
+S/N number of beaglebone: BBGW18031224
+MAC: 2CF7F10678C7
